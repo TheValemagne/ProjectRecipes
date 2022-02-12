@@ -1,0 +1,76 @@
+<div class="row mt-3">
+    <div class="col-12">
+        <h1>Modifier le mot de passe</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="currentPassword">Mot de passe actuel</label>
+                    <input type="password"
+                           id="currentPassword"
+                           class="form-control"
+                           formControlName="currentPassword"
+                    />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="newPassword">Nouveau mot de passe</label>
+                    <input type="password"
+                           id="newPassword"
+                           class="form-control"
+                           aria-describedby="passwordHelp"
+                           formControlName="newPassword"
+                    />
+                    <small id="passwordHelp" class="form-text">Le mot de passe doit contenir au moins 6 caractères</small>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="repeatPassword">Confirmer le mot de passe</label>
+                    <input type="password"
+                           id="repeatPassword"
+                           class="form-control"
+                           formControlName="repeatPassword"
+                    />
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-danger mt-3" 
+                         role="alert" 
+                         *ngIf="error && profileForm.valid">
+                        {{error}}
+                    </div>
+                    <div class="alert alert-warning mt-3" 
+                         role="alert" 
+                         *ngIf="!profileForm.valid && profileForm.touched && profileForm.hasError('NotValidNewPassword')">
+                        Le nouveau mot de passe doit être différent de l'ancien.
+                    </div>
+                    <div class="alert alert-warning mt-3" 
+                         role="alert" 
+                         *ngIf="!profileForm.valid && profileForm.touched && profileForm.hasError('NotSamePassword') && !profileForm.hasError('NotValidNewPassword')">
+                        Les deux nouveaux mots de passes doivent être identiques.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" 
+                            class="btn btn-success me-2"
+                            aria-label="Modifier le mot de passe"
+                            [disabled]="!profileForm.valid"
+                    >Sauvegarder</button>
+                    <button type="button" 
+                            class="btn btn-outline-info"
+                            (click)="onCancel()"
+                    >Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

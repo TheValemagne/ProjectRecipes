@@ -1,0 +1,56 @@
+<ng-template appPlaceholder></ng-template>
+<div class="row mt-3">
+    <div class="col-12 col-sm-6 offset-sm-3 mt-3">
+        <h1>{{isLoginMode? 'Connexion' : 'Créer un compte'}}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-sm-6 offset-sm-3">      
+        <div *ngIf="isLoading" style="text-align: center">
+            <app-loader></app-loader>
+        </div>
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="email">Email</label>
+                    <input type="email" 
+                           id="email" 
+                           name="email"
+                           class="form-control" 
+                           ngModel
+                           required
+                           email/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" 
+                           id="password"
+                           name="password" 
+                           class="form-control"
+                           aria-describedby="passwordHelp"
+                           ngModel
+                           required
+                           minlength="6"/>
+                    <div id="passwordHelp" 
+                         class="form-text" 
+                         *ngIf="!isLoginMode">
+                        Le mot de passe doit contenir au moins 6 caractères
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-outline-primary me-2 mt-2"
+                            type="button"
+                            (click)="onToggleMode()">{{isLoginMode? 'Créer un compte' : 'Déjà inscrit ?'}}</button>
+                    <button class="btn btn-primary mt-2"
+                            type="submit"
+                            [disabled]="!f.valid">{{isLoginMode? 'Se connecter' : 'S\'inscrire'}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

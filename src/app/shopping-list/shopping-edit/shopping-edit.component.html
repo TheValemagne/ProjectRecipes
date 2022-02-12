@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-xs-12 mt-5 p-5 bg-light">
+        <form (ngSubmit)="onAddEditIngredient()" #f="ngForm">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label for="inputIngredient">Ingredient</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="inputIngredient"
+                           name="name"
+                           ngModel
+                           required
+                    />
+                </div>
+                <div class="col-md-2">
+                    <label for="inputQuantity">Quantité</label>
+                    <input type="number" 
+                           class="form-control" 
+                           id="inputQuantity"
+                           name="quantity"
+                           min="0"
+                           ngModel
+                           required
+                           pattern="[1-9]+[0-9]*$"
+                    />
+                </div>
+                <div class="col-md-2">
+                    <label for="inputUnit">Unité</label>
+                   <select name="unit" 
+                           id="inputUnit" 
+                           class="form-control"
+                           ngModel
+                    >
+                       <option value="" selected>n/a</option>
+                       <option value="g" >g</option>
+                       <option value="kg" >kg</option>
+                       <option value="L" >L</option>
+                       <option value="cL" >cL</option>
+                       <option value="mL" >mL</option>
+                   </select>
+                </div>
+            </div>
+            <div class="float-end">
+                <button type="button" 
+                        class="btn btn-outline-dark me-1 mt-1"
+                        (click)="onReset()">Réinitialiser</button>
+                <button *ngIf="editMode"
+                        type="button" 
+                        class="btn btn-danger me-1 mt-1"
+                        (click)="onDelete()">Supprimer</button>
+                <button type="submit" 
+                        class="btn btn-success text-uppercase font-weight-bold mt-1"
+                        [disabled]="!f.valid">{{editMode? 'Mettre à jour' : 'Ajouter'}}</button>
+            </div>
+        </form>
+    </div>
+</div>

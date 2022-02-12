@@ -1,0 +1,17 @@
+<div class="row mt-3 mb-3">
+    <div class="col-xs-12">
+        <button class="btn btn-outline-primary btn-lg" 
+                (click)="onNewRecipe()">Nouvelle recette</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p *ngIf="recipes.length === 0">Aucune recette enregistrée</p>
+        <app-recipe-item *ngFor="let recipeElt of recipes; let i = index" 
+                         [recipe]="recipeElt"
+                         [id]="i"
+        ></app-recipe-item>
+    </div>
+</div>
+
+

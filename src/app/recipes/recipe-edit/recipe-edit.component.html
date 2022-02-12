@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-12 mt-3 mb-3">
+        <form (ngSubmit)="onSubmit()" [formGroup]="recipeForm">
+            <fieldset>
+                <legend>Information de la recette</legend>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="name">Nom de la recette</label>
+                        <input type="text"
+                               id="name"
+                               class="form-control"
+                               formControlName="name"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="imageURL">Adresse de l'image</label>
+                        <input type="text"
+                               id="imageURL"
+                               class="form-control"
+                               formControlName="imageURL"
+                               #imageURL
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <img [src]="imageURL.value" class="img-fluid mt-2" alt="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="description">Description</label>
+                        <textarea type="text"
+                                  id="description"
+                                  class="form-control"
+                                  rows="5"
+                                  formControlName="description"
+                        ></textarea>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12" formArrayName="ingredients">
+                        <h3>Ingrédients</h3>
+                        <div class="row mb-2"
+                             *ngFor="let ingredientCtrl of controls; let i = index"
+                             [formGroupName]="i"
+                        >
+                            <div class="col-4 col-md-6">
+                                <input type="text"
+                                       class="form-control"
+                                       formControlName="name"
+                                />
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <input type="number"
+                                       class="form-control"
+                                       formControlName="quantity"
+                                />
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <select name="unit" 
+                                        class="form-control"
+                                        formControlName="unit"
+                                >
+                                    <option value="" selected>n/a</option>
+                                    <option value="g" >g</option>
+                                    <option value="kg" >kg</option>
+                                    <option value="L" >L</option>
+                                    <option value="cL" >cL</option>
+                                    <option value="mL" >mL</option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button type="button"
+                                        class="btn btn-danger"
+                                        aria-label="Supprimer l'ingrédient"
+                                        (click)="onDeleteIngredient(i)">X</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-warning"
+                                     *ngIf="controls.length < 2"
+                                >Ajoutez au minimum deux ingrédients</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="button"
+                                        class="btn btn-outline-success me-2 mt-3"
+                                        (click)="onAddIngredient()"
+                                >Ajouter ingrédient</button>
+                                <button type="button"
+                                        class="btn btn-outline-danger mt-3"
+                                        (click)="onDeleteAllIngredients()"
+                                >Supprimer les ingrédients</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" 
+                                class="btn btn-success me-2"
+                                [disabled]="!recipeForm.valid"
+                        >Sauvegarder</button>
+                        <button type="button" 
+                                class="btn btn-outline-info"
+                                (click)="onCancel()"
+                        >Annuler</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
